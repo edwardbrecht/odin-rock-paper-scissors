@@ -1,13 +1,13 @@
 const Hand = {
-    Rock: Symbol("rock"),
-    Paper: Symbol("paper"),
-    Scissors: Symbol("scissors")
+    Rock: "Rock",
+    Paper: "Paper",
+    Scissors: "Scissors"
 }
 
 const Outcome = {
-    PlayerWins: Symbol("playerWins"),
-    ComputerWins: Symbol("computerWins"),
-    Tie: Symbol("tie")
+    PlayerWins: "You win!",
+    ComputerWins: "You lose!",
+    Tie: "It's a tie!"
 }
 
 function getRandomNum() {
@@ -75,3 +75,45 @@ function eval(playerChoice, computerChoice) {
                 return null;
     }
 }
+
+function getPlayerChoice() {
+    while (true) {
+        let playerChoice = +prompt("Make a selection: 1 - Rock, 2 - Paper, 3 - Scissors:", '')
+        if (playerChoice >= 1 && playerChoice <=3) return getShape(playerChoice);
+    }
+}
+
+function game() {
+    let wins = 0;
+    let losses = 0;
+    let ties = 0;
+
+    for (let round = 1; round <= 5; round++) {
+        alert(`It's round ${round}!`)
+        let playerChoice = getPlayerChoice();
+        let computerChoice = getComputerChoice();
+        let outcome = eval(playerChoice, computerChoice);
+        switch (outcome) {
+            case Outcome.PlayerWins:
+                wins++;
+                alert(`${outcome} ${playerChoice} beats ${computerChoice}.`);
+                break;
+            case Outcome.ComputerWins:
+                losses++;
+                alert(`${outcome} ${computerChoice} beats ${playerChoice}.`);
+                break;
+            case Outcome.Tie:
+                ties++;
+                alert(`${outcome}`);
+                break;
+            default:
+                console.error(`Unexpected outcome in game. outcome = ${outcome}`);
+        }
+    }
+    alert(`Game over!
+    Wins: ${wins}
+    Losses: ${losses}
+    Ties: ${ties}`)
+}
+
+game();

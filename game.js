@@ -13,13 +13,13 @@ const Outcome = {
 let wins = 0;
 let losses = 0;
 let ties = 0;
-let round = 1;
 let gameOver = false;
 
 document.getElementById("rock-btn").addEventListener("click", () => playRound(Hand.Rock))
 document.getElementById("paper-btn").addEventListener("click", () => playRound(Hand.Paper))
 document.getElementById("scissors-btn").addEventListener("click", () => playRound(Hand.Scissors))
-
+document.getElementById("restart-btn").addEventListener("click", newGame)
+updateUI();
 
 function getRandomNum() {
     return Math.floor(Math.random() * 3) + 1;
@@ -88,7 +88,6 @@ function eval(playerChoice, computerChoice) {
 }
 
 function playRound(playerChoice) {
-    console.log(`It's round ${round}!`)
     let computerChoice = getComputerChoice();
     let outcome = eval(playerChoice, computerChoice);
     switch (outcome) {
@@ -106,16 +105,45 @@ function playRound(playerChoice) {
             break;
         default:
             console.error(`Unexpected outcome in game. outcome = ${outcome}`);
-        }
-    round++;
+    }
+    if (wins >= 5) {
+        endGame("win");
+    } else if (losses >= 5) {
+        endGame("lose");
+    }
+    
+    updateUI(playerChoice, computerChoice);
 }
 
-function game() {
-
-
-    alert(`Game over!
-    Wins: ${wins}
-    Losses: ${losses}
-    Ties: ${ties}`)
+function endGame(playerOutcome) {
+    gameOver = true;
+    if (playerOutcome === "win") {
+        document.getElementById("outcome-text").innerText = "You Win!"
+    } else if (playerOutcome === "lose") {
+        document.getElementById("outcome-text").innerText = "You Lose."
+    }
+    updateUI();
 }
 
+function newGame() {
+    console.log("New game!");
+    wins = 0;
+    losses = 0;
+    ties = 0;
+    gameOver = false;
+    updateUI();
+}
+
+function updateUI(playerChoice, computerChoice) {
+    if (!gameOver) {
+        document.getElementById("game-over-content").style.display = "none"
+        document.getElementById("game-content").style.display = "block"
+        document.getElementById("comp-hand-text").innerText = computerChoice ? `The computer played ${computerChoice}!` : "New game!";
+        document.getElementById("wins-text").innerText = `Wins: ${wins}`;
+        document.getElementById("losses-text").innerText = `Losses: ${losses}`;
+        document.getElementById("ties-text").innerText = `Ties: ${ties}`;
+    } else {
+        document.getElementById("game-over-content").style.display = "block"
+        document.getElementById("game-content").style.display = "none"
+    }
+}

@@ -93,15 +93,12 @@ function playRound(playerChoice) {
     switch (outcome) {
         case Outcome.PlayerWins:
             wins++;
-            console.log(`${outcome} ${playerChoice} beats ${computerChoice}.`);
             break;
         case Outcome.ComputerWins:
             losses++;
-            console.log(`${outcome} ${computerChoice} beats ${playerChoice}.`);
             break;
         case Outcome.Tie:
             ties++;
-            console.log(`${outcome}`);
             break;
         default:
             console.error(`Unexpected outcome in game. outcome = ${outcome}`);
@@ -111,7 +108,7 @@ function playRound(playerChoice) {
     } else if (losses >= 5) {
         endGame("lose");
     }
-    
+
     updateUI(playerChoice, computerChoice);
 }
 
@@ -126,7 +123,6 @@ function endGame(playerOutcome) {
 }
 
 function newGame() {
-    console.log("New game!");
     wins = 0;
     losses = 0;
     ties = 0;

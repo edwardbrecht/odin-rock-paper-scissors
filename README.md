@@ -1,3 +1,3 @@
 # odin-rock-paper-scissors
 
-This is a game of Rock, Paper, Scissors. This is an exercise in simple Javascript. The game will be played via popup alerts and prompts. A GUI will be added later.
+This is a game of Rock, Paper, Scissors. This is an exercise in simple Javascript. The UI will consist of 3 buttons each representing either rock, paper, or scissors. The user can click on a button to play that hand. The computer will throw a random hand. The game will continue until either the user or the computer has won five rounds. This project requires knowledge of conditionals, variables, and loops for the game logic, and manipulation of the DOM for the UI. Not in the curriculum is use of enums for played hands.

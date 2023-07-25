@@ -1,0 +1,31 @@
+* {
+    padding: 0;
+    margin: 20px;
+}
+
+body {
+    text-align: center;
+    background-color: #333;
+    color: white;
+}
+
+#content {
+    width: 50vw;
+    margin: 0 auto;
+}
+
+h1 {
+ 
+}
+
+#welcome-text {
+
+}
+
+#comp-hand-text {
+
+}
+
+#stats-container {
+
+}

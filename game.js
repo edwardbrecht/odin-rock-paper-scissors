@@ -10,6 +10,17 @@ const Outcome = {
     Tie: "It's a tie!"
 }
 
+let wins = 0;
+let losses = 0;
+let ties = 0;
+let round = 1;
+let gameOver = false;
+
+document.getElementById("rock-btn").addEventListener("click", () => playRound(Hand.Rock))
+document.getElementById("paper-btn").addEventListener("click", () => playRound(Hand.Paper))
+document.getElementById("scissors-btn").addEventListener("click", () => playRound(Hand.Scissors))
+
+
 function getRandomNum() {
     return Math.floor(Math.random() * 3) + 1;
 }
@@ -76,44 +87,35 @@ function eval(playerChoice, computerChoice) {
     }
 }
 
-function getPlayerChoice() {
-    while (true) {
-        let playerChoice = +prompt("Make a selection: 1 - Rock, 2 - Paper, 3 - Scissors:", '')
-        if (playerChoice >= 1 && playerChoice <=3) return getShape(playerChoice);
-    }
+function playRound(playerChoice) {
+    console.log(`It's round ${round}!`)
+    let computerChoice = getComputerChoice();
+    let outcome = eval(playerChoice, computerChoice);
+    switch (outcome) {
+        case Outcome.PlayerWins:
+            wins++;
+            console.log(`${outcome} ${playerChoice} beats ${computerChoice}.`);
+            break;
+        case Outcome.ComputerWins:
+            losses++;
+            console.log(`${outcome} ${computerChoice} beats ${playerChoice}.`);
+            break;
+        case Outcome.Tie:
+            ties++;
+            console.log(`${outcome}`);
+            break;
+        default:
+            console.error(`Unexpected outcome in game. outcome = ${outcome}`);
+        }
+    round++;
 }
 
 function game() {
-    let wins = 0;
-    let losses = 0;
-    let ties = 0;
 
-    for (let round = 1; round <= 5; round++) {
-        alert(`It's round ${round}!`)
-        let playerChoice = getPlayerChoice();
-        let computerChoice = getComputerChoice();
-        let outcome = eval(playerChoice, computerChoice);
-        switch (outcome) {
-            case Outcome.PlayerWins:
-                wins++;
-                alert(`${outcome} ${playerChoice} beats ${computerChoice}.`);
-                break;
-            case Outcome.ComputerWins:
-                losses++;
-                alert(`${outcome} ${computerChoice} beats ${playerChoice}.`);
-                break;
-            case Outcome.Tie:
-                ties++;
-                alert(`${outcome}`);
-                break;
-            default:
-                console.error(`Unexpected outcome in game. outcome = ${outcome}`);
-        }
-    }
+
     alert(`Game over!
     Wins: ${wins}
     Losses: ${losses}
     Ties: ${ties}`)
 }
 
-game();
